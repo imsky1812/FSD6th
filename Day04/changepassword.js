@@ -1,19 +1,32 @@
-import { readFile, writeFile } from "./helper.js"
-const FILE = "./users.json"
+import { readFile, writeFile } from "./helper.js";
+
+const FILE = "./users.json";
+
 const changePassword = async (userDetails, FILE) => {
-    const users = await readFile(FILE);
-    if (users.length === 0)
-        return { message: "User is not existing. PLease register" };
+  const users = await readFile(FILE);
 
-    const user = users.find((user) => user.email === userDetails.email);
-    if (!user) return { message: "User is not existing. PLease register" };
+  if (users.length === 0)
+    return { message: "User is not existing. Please register" };
 
-    const updatedData = users.map((user) =>
-        user.email === userDetails.email ? { ...user, ...userDetails } : user);
+  const user = users.find(
+    (user) =>
+      user.email.toLowerCase() === userDetails.email.toLowerCase()
+  );
 
-    const response = await writeFile(updatedData, FILE);
-    return response;
+  if (!user)
+    return { message: "User is not existing. Please register" };
 
-}
-changePassword({ email: "rmccurt0@dailymail.co.uk", password: "12345678" }, FILE)
-    .then((res) => console.log(res));
+  const updatedData = users.map((user) =>
+    user.email === userDetails.email
+      ? { ...user, ...userDetails }
+      : user
+  );
+
+  const response = await writeFile(updatedData, FILE);
+  return response;
+};
+
+changePassword(
+  { email: "rmccurte@dailymail.co.uk", password: "12345678" },
+  FILE
+).then((res) => console.log(res));
