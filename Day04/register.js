@@ -4,6 +4,7 @@ const register = async (userDetails, FILE) => {
     if(!name || !email || !password || !gender )
         return {message: "All fields are required to register."};
     const users = readFile(FILE);
+    
     const existingUser = users.find((user) => user.email.toLowerCase()===email.toLowerCase());
     if(existingUser) return {message:" user is already there. please try to login..."}
    let updateUsers = [];
