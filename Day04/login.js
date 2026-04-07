@@ -1,6 +1,7 @@
 import { readFile } from "./helper.js";
 
-const FILE = "./users.json";
+// const FILE = "./users.json";
+export const login  = async (userDetails, FILE);
 
 const login = async (userDetails, FILE) => {
   try {
